@@ -14,6 +14,8 @@
     "symfony/http-foundation": "^3.0",
     "symfony/yaml": "^3.0",
     "psr/log": "dev-master",
+    "psr/cache": "dev-master",
+    "psr/simple-cache": "dev-master",
     "paragonie/password_lock": "master-dev"
   },
   "autoload": {
