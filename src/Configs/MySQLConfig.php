@@ -13,7 +13,9 @@ class MySQLConfig extends AbstractConfig{
     public $password;
     public $dbname;
 
-
+    /**
+     * @param $config
+     */
     public function __construct($config){
         isset($config["host"])? ($this->host = $config["host"]): null;
         isset($config["username"])? ($this->username = $config["username"]): null;

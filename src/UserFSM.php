@@ -36,11 +36,15 @@ class UserFSM
     protected $sm;
     protected $userStorage;
 
+    /**
+     * @param \Finite\StatefulInterface $user
+     * @param \IDM\IIDMStorage          $userStorage
+     * @param                           $dispatcher
+     */
     public function __construct(StatefulInterface $user, IIDMStorage $userStorage, $dispatcher){
         $this->dispatcher = $dispatcher;
         $this->userStorage = $userStorage;
-        $this->sm = new StateMachine();
-        $this->init($user);
+        $this->init($user, $dispatcher);
     }
 
     public function userExisted(string $uuid){
@@ -66,14 +70,35 @@ class UserFSM
         }
     }
 
+    /**
+     *
+     */
+    public function updateClaims(StandardClaims $claims){
 
+    }
+
+    /**
+     *
+     */
+    public function updateExtraClaims(string $extraClaims){
+
+    }
+
+
+    /**
+     *
+     */
+    public function createUser(string $uid, string $password, StandardClaims $standardClaimsn, array $extraClaims = []){
+
+    }
     ///////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
 
-    protected function init(StatefulInterface $UserEntity)
+    protected function init(StatefulInterface $UserEntity, $dispatcher)
     {
         $sm = new StateMachine();
+        $sm->setDispatcher($dispatcher);
 
         // Define states
         $initState = new State(UserFSM::USER_STATE_INIT, StateInterface::TYPE_INITIAL);
@@ -242,7 +267,6 @@ class UserFSM
 
         $sm->getDispatcher()->addListener('finite.post_transition.' . UserFSM::TRANSITION_CLOSE,
             array($this, 'aClose'));
-
 
         $this->sm = $sm;
     }
