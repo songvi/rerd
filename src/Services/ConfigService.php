@@ -11,6 +11,8 @@ use AuthStack\Exceptions\ConfigNotFoundException;
 use AuthStack\Exceptions\ConfigSyntaxException;
 use AuthStack\Logs\LogFile;
 use AuthStack\Logs\LogType;
+use Dibi\Drivers\SqlsrvDriver;
+use IDM\SqlStorage;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -39,6 +41,7 @@ class ConfigService
     }
 
     public function getIDMStorage(){
-
+        $config = MySQLConfig($this->config['authentication']['userstorage']['sqlconnection']);
+        return new SqlStorage($config);
     }
 }
